@@ -1,33 +1,48 @@
-
 import streamlit as st
-from datetime import date
+from datetime import datetime
+import random
 
-st.set_page_config(page_title="Binary Wisdom", layout="centered")
+st.set_page_config(page_title="Abrahamic Reading", layout="centered")
 
-st.title("🧿 Binary Wisdom: Abrahamic Numerology Portal")
-st.markdown("Welcome to the spiritual toolkit built on sacred science and divine tradition.")
-
-today = date.today()
-hundred_years_ago = date(today.year - 100, today.month, today.day)
+st.title("🔮 Abrahamic Reading Portal")
+st.markdown("Experience esoteric readings based on sacred numerology, Qur’anic wisdom, and Abrahamic traditions.")
 
 with st.form("user_form"):
     name = st.text_input("Your Full Name")
-    dob = st.date_input("Your Date of Birth", value=today, min_value=hundred_years_ago, max_value=today)
-
     mother_name = st.text_input("Mother's Full Name")
-    mother_dob = st.date_input("Mother's Date of Birth", value=today, min_value=hundred_years_ago, max_value=today)
-
     father_name = st.text_input("Father's Full Name")
-    father_dob = st.date_input("Father's Date of Birth", value=today, min_value=hundred_years_ago, max_value=today)
-
-    child_name = st.text_input("Child's Name")
-    child_dob = st.date_input("Child's Date of Birth", value=today, min_value=hundred_years_ago, max_value=today)
-
-    submit = st.form_submit_button("🔮 Get My Reading")
+    dob = st.date_input("Your Date of Birth")
+    mother_dob = st.date_input("Mother's Date of Birth")
+    father_dob = st.date_input("Father's Date of Birth")
+    children = st.text_area("Children's Names and DOBs (One per line: Name - YYYY-MM-DD)")
+    submit = st.form_submit_button("Get Your Reading")
 
 if submit:
-    st.success("✅ Reading Complete")
-    st.info("✨ Disclaimer: For educational and entertainment purposes only.")
+    st.success("🕯️ Reading complete. Scroll down to see your insights.")
 
-st.markdown("---")
-st.caption("© Binary Wisdom – All rights reserved.")
+    def simple_abjad(name):
+        abjad_table = {
+            'ا': 1, 'ب': 2, 'ج': 3, 'د': 4, 'ه': 5, 'و': 6, 'ز': 7,
+            'ح': 8, 'ط': 9, 'ی': 10, 'ک': 20, 'ل': 30, 'م': 40,
+            'ن': 50, 'س': 60, 'ع': 70, 'ف': 80, 'ص': 90, 'ق': 100,
+            'ر': 200, 'ش': 300, 'ت': 400, 'ث': 500, 'خ': 600,
+            'ذ': 700, 'ض': 800, 'ظ': 900, 'غ': 1000
+        }
+        return sum(abjad_table.get(ch, 0) for ch in name if ch in abjad_table)
+
+    abjad_value = simple_abjad(name)
+    st.write(f"🔢 Abjad Value of Your Name: **{abjad_value}**")
+
+    verse_index = abjad_value % 6236 + 1
+    st.write(f"📖 Suggested Qur’anic Verse Number: **{verse_index}**")
+
+    hikma_list = [
+        "The worth of every man is in his attainment.",
+        "Patience is of two kinds: patience over what pains you, and patience against what you covet.",
+        "He who has a thousand friends has not a friend to spare, and he who has one enemy will meet him everywhere."
+    ]
+    hikma = random.choice(hikma_list)
+    st.write(f"🪶 Wisdom from Imam Ali (ع): _{hikma}_")
+
+    st.markdown("---")
+    st.caption("© Abrahamic Reading - All rights reserved. Educational use only.")
