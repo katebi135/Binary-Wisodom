@@ -1,7 +1,3 @@
 
-def get_kimiya_profile(birthdate):
-    return {
-        "Element": "Water",
-        "Spiritual Alchemy": "Reflective Healing",
-        "Profile Note": "Inner healing and dream communication are high."
-    }
+def get_kimiya_profile(name):
+    return "You hold the secret of inner alchemy. Transform and evolve."
